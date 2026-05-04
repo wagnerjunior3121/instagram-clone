@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# Instagram Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Um clone do Instagram desenvolvido com **React** e **Firebase**, como projeto de aprendizado.
 
-## Available Scripts
+🔗 **Demo ao vivo:** [instagram-clone-curso-3728f.web.app](https://instagram-clone-curso-3728f.web.app)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Autenticação completa (cadastro, login e logout) com Firebase Auth
+- Feed de posts em tempo real com Firestore
+- Publicação de posts via URL de imagem
+- Sistema de curtidas com contador persistido
+- Comentários por post em subcoleção do Firestore
+- Stories com atualização em tempo real
+- Sidebar lateral expansível no hover com ícones SVG
+- Sidebar responsiva para mobile com menu hamburguer
+- Tema automático (claro/escuro) conforme preferência do sistema
+- Notificações visuais (toast) no lugar de alerts
+- Skeleton loading enquanto os posts carregam
+- Página 404 para rotas inexistentes
+- Logo do Instagram rola para o topo ao clicar
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Tecnologias
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [React 19](https://react.dev/)
+- [Firebase v12](https://firebase.google.com/) — Auth, Firestore, Hosting
+- [React Router DOM](https://reactrouter.com/)
+- CSS puro
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Como rodar localmente
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**1. Clone o repositório:**
+```bash
+git clone https://github.com/wagnerjunior3121/instagram-clone.git
+cd instagram-clone
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**2. Instale as dependências:**
+```bash
+npm install
+```
 
-### `npm run eject`
+**3. Configure o Firebase:**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Copie o arquivo de exemplo e preencha com suas credenciais do [Firebase Console](https://console.firebase.google.com/):
+```bash
+cp src/firebase.example.js src/firebase.js
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Edite `src/firebase.js` com os dados do seu projeto Firebase.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**4. Rode a aplicação:**
+```bash
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Deploy
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run build
+npx firebase-tools deploy --only hosting
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Estrutura do projeto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+src/
+├── App.js            # Componente raiz, estado global, roteamento
+├── App.css           # Estilos globais
+├── Header.js         # Header com login, cadastro e modal de postagem
+├── Post.js           # Card de post com curtidas e comentários
+├── SideMenu.js       # Sidebar lateral com ícones SVG
+├── Toast.js          # Sistema de notificações visuais
+├── PostSkeleton.js   # Skeleton loading dos posts
+├── NotFound.js       # Página 404
+├── firebase.js       # Configuração do Firebase (ignorado pelo git)
+└── firebase.example.js  # Exemplo de configuração do Firebase
+```
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Segurança
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+As Firestore Security Rules estão configuradas para que apenas o administrador possa criar, editar e deletar posts, comentários e stories. Qualquer usuário pode visualizar o conteúdo.
