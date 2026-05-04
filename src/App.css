@@ -1,38 +1,615 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  background-color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.leftSidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 78px;
+  height: 100vh;
+  background-color: #040b14;
+  border-right: 1px solid #1a1f27;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 10px 0 14px 0;
+  z-index: 20;
+  overflow: hidden;
+  transition: width 0.25s ease;
+}
+
+.leftSidebar:hover{
+  width: 244px;
+}
+
+.sidebarTop,
+.sidebarBottom,
+.sidebarNav{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.sidebarNav{
+  margin-top: 10px;
+}
+
+.sideIcon{
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #ffffff;
+  cursor: default;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 0;
+}
+
+.iconWrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 48px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sideIconLabel{
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  padding-left: 4px;
+}
+
+.leftSidebar:hover .sideIconLabel{
+  opacity: 1;
+}
+
+.sideIcon:hover{
+  background-color: #ffffff;
+  color: #040b14;
+}
+
+.iconGlyph{
+  font-size: 26px;
+  line-height: 1;
+}
+
+.iconSvg{
+  width: 24px;
+  height: 24px;
+}
+
+.explorarLabel{
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #ffffff;
+}
+
+.iconBadge{
+  position: absolute;
+  top: 4px;
+  right: 0px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background-color: #ff3040;
+  color: white;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+.appContent{
+  margin-left: 78px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .leftSidebar{
+    background-color: #ffffff;
+    border: none;
+  }
+  .sideIcon{
+    color: #040b14;
+  }
+  .sideIcon:hover{
+    background-color: #040b14;
+    color: #ffffff;
+  }
+  .explorarLabel{
+    color: #040b14;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.center{
+  display: flex;
+  margin: 0 auto;
+  padding: 0 2%;
+  max-width: 1100px;
+}
+
+.header{
+  padding: 10px 0;
+  background-color: white;
+  
+}
+
+.header_logo{
+  width: 50%;
+}
+
+.header_loginForm{
+  width: 50%;
+  text-align: right;
+}
+
+.header_loginForm form{
+  display: inline-block;
+}
+
+.header_loginForm input[type=text],
+.header_loginForm input[type=password]{
+  width: 180px;
+  margin-right: 5px;
+  height: 20px;
+  border: 1 px solid #ccc;
+  padding-left: 10px;
+}
+
+.header_loginForm input[type=submit]{
+  background-color: #0095f6;
+  color: white;
+  border: 0;
+  height: 20px;
+  padding: 0px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.btn_criarConta{
+  display: inline-block;
+}
+
+.btn_criarConta button{
+  font-size: 14px;
+  margin: 0 10px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.header_logadoInfo{
+  text-align: right;
+  width: 50%;
+}
+
+.header_logadoInfo button{
+  margin: 0 10px;
+  background-color: #0095f6;
+  color: white;
+  border: 0;
+  padding: 3px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.modalCriarConta{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+
+.formCriarConta{
+  background-color: white;
+  width: 80%;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 700px;
+  text-align: center;
+}
+
+.formCriarConta input{
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.formCriarConta input[type=submit]{
+  background-color: #0095f6;
+  color: white;
+  border: 0;
+  height: 30px;
+  padding: 0px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.close-modal-criar{
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #0095f6;
+  text-align: center;
+  color: white;
+  line-height: 30px;
+}
+
+.close-modal-criar button{
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  border: 0;
+  background-color: #0095f6;
+  color: white;
+  cursor: pointer;
+}
+
+.modalUpload{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+
+.formUpload{
+  background-color: white;
+  width: 80%;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 700px;
+  text-align: center;
+}
+
+.formUpload input{
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.formUpload input[type=submit]{
+  background-color: #0095f6;
+  color: white;
+  border: 0;
+  height: 30px;
+  padding: 0px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.postSingle{
+  background-color: white;
+  max-width: 700px;
+  margin: 10px auto;
+  border-radius: 20px;
+}
+
+.postSingle img{
+  width: 100%;
+  border-radius: 20px;
+}
+
+.postSingle p{
+  padding: 10px;
+}
+
+.postSingle form{
+  padding: 20px;
+}
+.postSingle textarea{
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.postSingle input[type=submit]{
+  background-color: #0095f6;
+  color: white;
+  border: 0;
+  height: 30px;
+  padding: 0px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.storiesArea{
+  background-color: white;
+  max-width: 700px;
+  margin: 15px auto;
+  padding: 15px;
+}
+
+.storyForm{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  border-radius: 20px;
+}
+
+.storyForm input[type=url]{
+  flex: 1;
+  height: 34px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  border-radius: 20px;
+}
+
+.storyForm input[type=submit]{
+  background-color: #0095f6;
+  color: white;
+  border: 0;
+  padding: 0 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.storiesLista{
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  border-radius: 20px;
+}
+
+.storyItem{
+  min-width: 70px;
+  text-align: center;
+}
+
+.storyItem img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0095f6;
+}
+
+.storyItem span{
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 20px;
+}
+
+.postActions{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px 10px 20px;
+}
+
+.likeButton{
+  background: transparent;
+  color: #111;
+  border: 0;
+  font-size: 28px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.likeButton:hover{
+  color: #e0245e;
+}
+
+.likeButton.liked{
+  color: #e0245e;
+}
+
+.likeCounter{
+  font-size: 14px;
+  color: #111;
+  font-weight: 600;
+}
+
+/* ===== TOAST ===== */
+.toastContainer{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast{
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #323232;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  animation: toastIn 0.25s ease;
+  max-width: 320px;
+}
+
+.toast--success{ background-color: #2e7d32; }
+.toast--error  { background-color: #c62828; }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== SKELETON ===== */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeletonBase{
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 6px;
+}
+
+.postSkeleton .skeletonImg{
+  width: 100%;
+  height: 320px;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.skeletonLines{
+  padding: 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonLine{
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.skeletonLine--short  { width: 40%; }
+.skeletonLine--medium { width: 65%; }
+.skeletonLine--full   { width: 100%; }
+
+/* ===== HAMBURGER (mobile) ===== */
+.hamburgerBtn{
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 6px;
+  margin-right: 12px;
+}
+
+.hamburgerBtn span{
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #333;
+  border-radius: 2px;
+}
+
+.mobileOverlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 19;
+}
+
+/* ===== 404 ===== */
+.notFoundPage{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
+  gap: 16px;
+  font-family: sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.notFoundPage h1{
+  font-size: 96px;
+  font-weight: 700;
+  color: #333;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.notFoundPage p{
+  font-size: 20px;
+  color: #666;
+}
+
+.notFoundPage a{
+  color: #0095f6;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.notFoundPage a:hover{
+  text-decoration: underline;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .hamburgerBtn{
+    display: flex;
   }
-  to {
-    transform: rotate(360deg);
+
+  .mobileOverlay{
+    display: block;
+  }
+
+  .leftSidebar{
+    left: -300px;
+    width: 244px;
+    transition: left 0.3s ease, width 0s;
+  }
+
+  .leftSidebar:hover{
+    width: 244px;
+  }
+
+  .leftSidebar.mobile-open{
+    left: 0;
+  }
+
+  .leftSidebar.mobile-open .sideIconLabel{
+    opacity: 1;
+  }
+
+  .appContent{
+    margin-left: 0;
   }
 }
