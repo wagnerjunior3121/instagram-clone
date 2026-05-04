@@ -4,7 +4,6 @@ import { getFirestore } from "firebase/firestore";
 import { getFunctions } from "firebase/functions";
 import { getStorage } from "firebase/storage";
 
-// Copie este arquivo para firebase.js e preencha com suas credenciais do Firebase Console
 const firebaseConfig = {
   apiKey: "",
   authDomain: "",
